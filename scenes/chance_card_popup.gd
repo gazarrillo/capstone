@@ -2,13 +2,13 @@ extends CanvasLayer
 
 const ChanceCardData = preload("res://scripts/core/chance_card_data.gd")
 
-#Reference for Card Information
+# Reference for Card Information
 @onready var card_type: Label = $Control/CenterContainer/Panel/PanelContainer/VBoxContainer/CardType
 @onready var card_description: Label = $Control/CenterContainer/Panel/PanelContainer/VBoxContainer/CardInfoContainer/CardDescription
 @onready var card_effect: Label = $Control/CenterContainer/Panel/PanelContainer/VBoxContainer/CardEffectContainer/Effect
 @onready var card_effect_value: Label = $Control/CenterContainer/Panel/PanelContainer/VBoxContainer/CardEffectContainer/EffectValue
 
-#close button
+# Close button
 @onready var close_button: Button = $Control/CenterContainer/Panel/PanelContainer/VBoxContainer/ButtonContainer/CloseButton
 
 # Current card being displayed
@@ -25,11 +25,14 @@ func _ready() -> void:
 	# Start hidden
 	visible = false
 	
-#Show the popup with information about a card
+## Show the popup with information about a randomly selected Chance card.
+## `card_num` is the board/space number that triggered this popup and is used
+## to decide which range of Chance cards to draw from.
 func show_card_details(card_num: int) -> void:
 	if card_num in [7, 22, 36]:
-		current_card = randi_range(1, 18)
-	else: current_card = randi_range(19, 36)
+		current_card = randi_range(0, 17)
+	else:
+		current_card = randi_range(18, 34)
 	
 	var card_info = ChanceCardData.get_card_info(current_card)
 	
@@ -42,7 +45,7 @@ func show_card_details(card_num: int) -> void:
 		"Metal":
 			card_type.text = "METAL CARD"
 			card_effect_value.text = str(card_info.value)
-		"Sillicate":
+		"Silicate":
 			card_type.text = "SILICATE CARD"
 			card_effect_value.text = card_info.value
 
@@ -52,13 +55,7 @@ func show_card_details(card_num: int) -> void:
 	
 	# Show the popup and bring to front
 	visible = true
-	print("Popup shown for ", card_info.type)
 	
-	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 func _on_close_pressed() -> void:
 	visible = false
-	print("Popup closed")
