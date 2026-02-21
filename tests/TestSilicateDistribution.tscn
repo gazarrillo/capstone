@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cm2ledf3weias"]
+
+[ext_resource type="Script" uid="uid://jd05emr1wfw" path="res://tests/test_silicate_distribution.gd" id="1_61v46"]
+
+[node name="TestSilicateDistribution" type="Node"]
+script = ExtResource("1_61v46")

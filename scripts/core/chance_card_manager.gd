@@ -104,13 +104,13 @@ func resolve_card(card_num: int, money_value: int, movement_value: int, space_nu
 	elif card_num == 34: #get out of jail card (needs a lock for inventory)
 		go_for_launch1_available = false
 		go_for_launch1_owner = current_player
-		var player = GameState.players[current_player]
-		player.go_for_launch_cards += 1
+		#var player = GameState.players[current_player]
+		#player.go_for_launch_cards += 1
 	
 	elif card_num == 35: #get out of jail card (needs a lock for inventory)
 		go_for_launch2_available = false
 		go_for_launch2_owner = current_player
-		var player = GameState.players[current_player]
-		player.go_for_launch_cards += 1
+		#var player = GameState.players[current_player]
+		#player.go_for_launch_cards += 1
 	else: #in place of an error
 		pass

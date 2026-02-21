@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ki7mc7wfem74"]
+
+[ext_resource type="Script" uid="uid://bhx7fre1mhht3" path="res://tests/test_silicate_resolution.gd" id="1_em1aj"]
+
+[node name="TestSilicateResolution" type="Node"]
+script = ExtResource("1_em1aj")

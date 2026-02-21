@@ -41,10 +41,11 @@ func show_card_details(space_num: int) -> void:
 		current_card = randi_range(0, 17)
 	else:
 		current_card = randi_range(18, 35)
+		
 		while current_card == 35 and not ChanceCardMgr.go_for_launch2_available:
 			current_card = randi_range(18, 35)
 		while current_card == 34 and not ChanceCardMgr.go_for_launch1_available:
-			current_card = randi_range(18, 35)
+			current_card = randi_range(18, 34)
 		
 	
 	card_info = ChanceCardData.get_card_info(current_card)

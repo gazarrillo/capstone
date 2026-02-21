@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bj6tsxbs8xpk5"]
+
+[ext_resource type="Script" uid="uid://db0xfwniuxlsy" path="res://tests/test_metal_distribution.gd" id="1_2xrms"]
+
+[node name="TestMetalDistribution" type="Node"]
+script = ExtResource("1_2xrms")

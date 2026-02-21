@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c2t5i8gsun288"]
+
+[ext_resource type="Script" uid="uid://dm8b2ir3kaclv" path="res://tests/test_metal_resolution.gd" id="1_fnu6q"]
+
+[node name="TestMetalResolution" type="Node"]
+script = ExtResource("1_fnu6q")
