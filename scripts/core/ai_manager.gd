@@ -42,7 +42,16 @@ var validUnmortgages: Array[int] = [] # holds the space numbers of mortgagable p
 func _initialize_property_multipliers(player: AiPlayerState) -> void:
 	for i in range(GameState.board.size()):
 		if GameState.board[i] is Ownable:
-			player.base_property_value_multipliers.append(1.1 + 0.4 * randf()) # TODO: set this based on difficulty, with a bit of variance between different properties/sets
+			if (player.difficulty == "Hard"):
+				player.base_property_value_multipliers.append(1.1 + 0.2 * randf()) # Hard AI has lower variance, and more heavily values the properties around and after jail
+				if (i > 10 && i < 30):
+					player.base_property_value_multipliers[i] *= 1.2
+				if (i > 15 && i < 25):
+					player.base_property_value_multipliers[i] *= 1.2 # Further value is given to the properties 1-2 turns out from jail
+			elif (player.difficulty == "Easy"):
+				player.base_property_value_multipliers.append(0.5 + 0.6 * randf() + 0.6 * randf()) # Easy AI values properties less generally but has a much higher range
+			else:
+				player.base_property_value_multipliers.append(1.1 + 0.4 * randf())
 		else:
 			player.base_property_value_multipliers.append(0)
 		player.current_property_value_multipliers.append(player.base_property_value_multipliers[i])
@@ -63,7 +72,8 @@ func _update_property_multipliers(player: AiPlayerState) -> void:
 				totalOwnedSpaces += 1
 				if (space._player_owner == player.player_id):
 					AIOwnedSpaces += 1
-					multiplier *= 1.2 # Ai values holding on to spaces it already has
+					if (player.difficulty != "Easy"):
+						multiplier *= 1.2 # Good AI values holding on to spaces it already has
 
 			if space is PropertySpace:
 				if (GameController._check_if_upgrade_is_valid(space, player.player_id)):
@@ -99,8 +109,8 @@ func _update_property_multipliers(player: AiPlayerState) -> void:
 		var difference = totalOwnedSpaces / float(GameState.players.size()) - AIOwnedSpaces
 		master_multiplier += difference / 10
 	
-	# If AI has any spaces that can be upgraded, then AI should propritize upgrading them
-	if (upgradableSpaces > 0):
+	# If AI has any spaces that can be upgraded, then good AI should propritize upgrading them
+	if (upgradableSpaces > 0 && player.difficulty != "Easy"):
 		master_multiplier *= 0.5
 	
 	player.master_property_value_multiplier = master_multiplier
