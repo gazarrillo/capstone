@@ -147,8 +147,8 @@ func _update_property_multipliers(player: AiPlayerState) -> void:
 	
 	player.master_property_value_multiplier = master_multiplier
 	
-	for i in range(GameState.board.size()):
-		print(GameState.board[i]._space_name, ": ", _calculate_AI_property_value(player, i))
+	#for i in range(GameState.board.size()):
+	#	print(GameState.board[i]._space_name, ": ", _calculate_AI_property_value(player, i))
 	
 
 func _calculate_AI_property_value(player: AiPlayerState, space_num: int) -> float:
