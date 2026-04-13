@@ -43,7 +43,7 @@ func _initialize_property_multipliers(player: AiPlayerState) -> void:
 	for i in range(GameState.board.size()):
 		if GameState.board[i] is Ownable:
 			if (player.difficulty == "Hard"):
-				player.base_property_value_multipliers.append(1.1 + 0.2 * randf()) # Hard AI has lower variance, and more heavily values the properties around and after jail
+				player.base_property_value_multipliers.append(1 + 0.2 * randf()) # Hard AI has lower variance, and more heavily values the properties around and after jail
 				if (i > 10 && i < 30):
 					player.base_property_value_multipliers[i] *= 1.2
 				if (i > 15 && i < 25):
@@ -52,6 +52,23 @@ func _initialize_property_multipliers(player: AiPlayerState) -> void:
 				player.base_property_value_multipliers.append(0.5 + 0.6 * randf() + 0.6 * randf()) # Easy AI values properties less generally but has a much higher range
 			else:
 				player.base_property_value_multipliers.append(1.1 + 0.4 * randf())
+			
+			if (GameState.board[i] is InstrumentSpace):
+				if (player.difficulty == "Easy"):
+					player.base_property_value_multipliers[i] *= 0.6
+				elif (player.difficulty == "Normal"):
+					player.base_property_value_multipliers[i] *= 1
+				elif (player.difficulty == "Hard"):
+					player.base_property_value_multipliers[i] *= 1.25
+				
+			if (GameState.board[i] is PlanetSpace):
+				if (player.difficulty == "Easy"):
+					player.base_property_value_multipliers[i] *= 1.3
+				elif (player.difficulty == "Normal"):
+					player.base_property_value_multipliers[i] *= 1
+				elif (player.difficulty == "Hard"):
+					player.base_property_value_multipliers[i] *= 0.7
+				
 		else:
 			player.base_property_value_multipliers.append(0)
 		player.current_property_value_multipliers.append(player.base_property_value_multipliers[i])
@@ -115,8 +132,8 @@ func _update_property_multipliers(player: AiPlayerState) -> void:
 	
 	player.master_property_value_multiplier = master_multiplier
 	
-	#for i in range(GameState.board.size()):
-	#	print(GameState.board[i]._space_name, ": ", _calculate_AI_property_value(player, i))
+	for i in range(GameState.board.size()):
+		print(GameState.board[i]._space_name, ": ", _calculate_AI_property_value(player, i))
 	
 
 func _calculate_AI_property_value(player: AiPlayerState, space_num: int) -> float:
